@@ -2,6 +2,8 @@ package rocks.ivski.hospitals.ui.list
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 import org.koin.android.viewmodel.ext.android.viewModel
 import rocks.ivski.hospitals.R
@@ -21,6 +23,8 @@ class ListFragment : BaseFragment<FragmentListBinding, ListVM>(), HospitalSelect
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar.toolbar)
+
         binding.adapter = adapter
 
         viewModel.getHospitals().observe(viewLifecycleOwner, {
@@ -28,10 +32,14 @@ class ListFragment : BaseFragment<FragmentListBinding, ListVM>(), HospitalSelect
                 ApiStatus.SUCCESS -> {
                     it.data?.let { items -> adapter.addItems(items) }
                     adapter.notifyDataSetChanged()
+                    binding.progressBar.visibility = View.GONE
                 }
                 ApiStatus.ERROR -> {
+                    binding.progressBar.visibility = View.GONE
+                    // TODO: 12/6/20 show error
                 }
                 ApiStatus.LOADING -> {
+                    binding.progressBar.visibility = View.VISIBLE
                 }
             }
         })
