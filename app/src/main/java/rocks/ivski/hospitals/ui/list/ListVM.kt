@@ -1,6 +1,6 @@
 package rocks.ivski.hospitals.ui.list
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
@@ -15,13 +15,8 @@ class ListVM(
     private val helper: Network
 ) : BaseVM() {
 
-    val hospitals = MutableLiveData<ApiResult<List<Hospital>>>()
-
-    init {
-        getHospitals()
-    }
-
-    private fun getHospitals() {
+    fun getHospitals(): LiveData<ApiResult<List<Hospital>>> {
+        val hospitals = MutableLiveData<ApiResult<List<Hospital>>>()
         viewModelScope.launch {
             hospitals.postValue(ApiResult.loading(null))
             if (helper.isConnected()) {
@@ -36,5 +31,6 @@ class ListVM(
                 hospitals.postValue(ApiResult.error("No internet connection", null))
             }
         }
+        return hospitals
     }
 }

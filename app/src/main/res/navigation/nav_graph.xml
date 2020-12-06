@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_list_to_details"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:argType="rocks.ivski.data.model.Hospital"/>
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
