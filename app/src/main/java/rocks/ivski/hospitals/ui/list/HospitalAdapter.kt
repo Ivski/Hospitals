@@ -1,13 +1,12 @@
 package rocks.ivski.hospitals.ui.list
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import rocks.ivski.hospitals.data.model.Hospital
 import rocks.ivski.hospitals.databinding.ItemListBinding
 
-class HospitalAdapter(val listener: HospitalSelectionListener) :
+class HospitalAdapter(private val listener: HospitalSelectionListener) :
     RecyclerView.Adapter<HospitalAdapter.HospitalHolder>() {
 
     private var items: ArrayList<Hospital> = arrayListOf()
