@@ -42,6 +42,56 @@ class ListVMTest {
             "http://www.humber.nhs.uk",
             ""
         )
+    private val fakeResponse2 =
+        Hospital(
+            1,
+            "RV9HE",
+            "Hospital",
+            "Mental Health Hospital",
+            "NHS Sector",
+            "Visible",
+            true,
+            "East West Home's Best",
+            "Swinemoor Lane",
+            "",
+            "",
+            "Beverley",
+            "East Yorkshire",
+            "HU17 0FA",
+            "53.85313415527344",
+            "-0.4114723205566406",
+            "RV9",
+            "Humber NHS Foundation Trust",
+            "01482 886600",
+            "newhospital@nhs.net",
+            "http://www.humber.nhs.uk",
+            ""
+        )
+    private val fakeResponse3 =
+        Hospital(
+            1,
+            "RV9HE",
+            "Hospital",
+            "Mental Health Hospital",
+            "NHS Sector",
+            "Visible",
+            true,
+            "West Riding Community Hospital",
+            "Swinemoor Lane",
+            "",
+            "",
+            "Beverley",
+            "East Yorkshire",
+            "HU17 0FA",
+            "53.85313415527344",
+            "-0.4114723205566406",
+            "RV9",
+            "Humber NHS Foundation Trust",
+            "01482 886600",
+            "newhospital@nhs.net",
+            "http://www.humber.nhs.uk",
+            ""
+        )
 
     @Test
     fun `when no network available no api call is made`() {
@@ -79,6 +129,33 @@ class ListVMTest {
             viewModel.getHospitals()
             assertTrue(repo.getData().isEmpty())
         }
+    }
+
+    @Test
+    fun `if no names start with keyword return empty list`() {
+        `when`(repo.getData()).thenReturn(listOf(fakeResponse))
+        viewModel = ListVM(repo, util)
+        assert(viewModel.filterByName("B").isEmpty())
+    }
+
+    @Test
+    fun `return only names starting with keyword`() {
+        `when`(repo.getData()).thenReturn(
+            listOf(
+                fakeResponse,
+                fakeResponse2,
+                fakeResponse3
+            )
+        )
+        viewModel = ListVM(repo, util)
+        assert(viewModel.filterByName("Eas").size == 2)
+    }
+
+    @Test
+    fun `search filtering is case insensitive`() {
+        `when`(repo.getData()).thenReturn(listOf(fakeResponse))
+        viewModel = ListVM(repo, util)
+        assert(viewModel.filterByName("e").size == 1)
     }
 
 }

@@ -8,29 +8,42 @@ import rocks.ivski.hospitals.data.model.Hospital
 import rocks.ivski.hospitals.data.repository.HospitalRepo
 import rocks.ivski.hospitals.ui.base.BaseVM
 import rocks.ivski.hospitals.utils.ApiResult
+import rocks.ivski.hospitals.utils.NETWORK_ERROR
 import rocks.ivski.hospitals.utils.Network
+import java.util.*
 
 class ListVM(
     private val repo: HospitalRepo,
     private val helper: Network
 ) : BaseVM() {
 
+    private val data = MutableLiveData<ApiResult<List<Hospital>>>()
+    val filteredResults = MutableLiveData<List<Hospital>>()
+
     fun getHospitals(): LiveData<ApiResult<List<Hospital>>> {
-        val hospitals = MutableLiveData<ApiResult<List<Hospital>>>()
-        viewModelScope.launch {
-            hospitals.postValue(ApiResult.loading(null))
-            if (helper.isConnected()) {
+        if (helper.isConnected()) {
+            viewModelScope.launch {
+                data.postValue(ApiResult.loading(null))
                 repo.getHospitals().let {
                     if (it.isSuccessful) {
-                        hospitals.postValue(ApiResult.success(it.body()))
+                        data.postValue(ApiResult.success(it.body()))
                     } else {
-                        hospitals.postValue(ApiResult.error(it.errorBody().toString(), null))
+                        data.postValue(ApiResult.error(it.errorBody().toString(), null))
                     }
                 }
-            } else {
-                hospitals.postValue(ApiResult.error("No internet connection", null))
             }
+        } else {
+            data.postValue(ApiResult.error(NETWORK_ERROR, null))
         }
-        return hospitals
+        return data
+    }
+
+    fun filterByName(startsWith: String): List<Hospital> {
+        val result = repo.getData().filter {
+            it.organizationName.toLowerCase(Locale.ROOT)
+                .startsWith(startsWith.toLowerCase(Locale.ROOT))
+        }
+        filteredResults.postValue(result)
+        return result
     }
 }
