@@ -3,7 +3,6 @@ package rocks.ivski.hospitals.ui.list
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 import org.koin.android.viewmodel.ext.android.viewModel
 import rocks.ivski.hospitals.R

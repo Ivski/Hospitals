@@ -3,7 +3,6 @@ package rocks.ivski.hospitals.ui.details
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import org.koin.android.viewmodel.ext.android.viewModel
 import rocks.ivski.hospitals.R
 import rocks.ivski.hospitals.databinding.FragmentDetailsBinding
