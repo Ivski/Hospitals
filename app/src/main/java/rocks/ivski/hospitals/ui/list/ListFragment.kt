@@ -78,6 +78,6 @@ class ListFragment : BaseFragment<FragmentListBinding, ListVM>(), HospitalSelect
     }
 
     override fun onHospitalSelected(hospital: Hospital) {
-        findNavController().navigate(R.id.detailsFragment)
+        findNavController().navigate(ListFragmentDirections.actionListToDetails(hospital))
     }
 }

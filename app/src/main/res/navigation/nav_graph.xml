@@ -12,12 +12,15 @@
         tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_list_to_details"
-            app:destination="@id/detailsFragment"
-            app:argType="rocks.ivski.data.model.Hospital"/>
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="rocks.ivski.hospitals.ui.details.DetailsFragment"
         android:label="DetailsFragment"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="hospital"
+            app:argType="rocks.ivski.hospitals.data.model.Hospital" />
+    </fragment>
 </navigation>
