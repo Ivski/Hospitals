@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="space_mini">4dp</dimen>
+    <dimen name="noSpace">0dp</dimen>
+    <dimen name="spaceMini">4dp</dimen>
     <dimen name="spaceSmall">8dp</dimen>
     <dimen name="spaceRegular">16dp</dimen>
 

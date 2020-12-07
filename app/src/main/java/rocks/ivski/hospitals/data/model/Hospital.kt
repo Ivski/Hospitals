@@ -18,7 +18,7 @@ data class Hospital(
     @SerializedName("Address2") val address2: String,
     @SerializedName("Address3") val address3: String,
     @SerializedName("City") val city: String,
-    @SerializedName("County") val country: String,
+    @SerializedName("County") val county: String,
     @SerializedName("Postcode") val postcode: String,
     @SerializedName("Latitude") val latitude: String,
     @SerializedName("Longitude") val longitude: String,

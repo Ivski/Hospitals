@@ -38,7 +38,7 @@
             android:id="@+id/hospitalType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_mini"
+            android:layout_marginTop="@dimen/spaceMini"
             android:text="@{item.subtype}"
             android:textColor="@color/black"
             android:textSize="@dimen/fontRegular"
